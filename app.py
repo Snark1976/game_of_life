@@ -10,15 +10,15 @@ app = Flask(__name__)
 @app.route('/index', methods=['get', 'post'])
 def index():
     if request.method == 'POST':
-        vert = int(request.form.get('vert'))
-        horiz = int(request.form.get('horiz'))
-        pts = int(request.form.get('pts'))
+        width = int(request.form.get('width'))
+        height = int(request.form.get('height'))
+        generation_per_second = int(request.form.get('generation_per_second'))
     else:
-        vert = 25
-        horiz = 30
-        pts = 1
-    GameOfLife(horiz, vert, pts=pts)
-    return render_template('index.html', vert=vert, goriz=horiz, pts=pts)
+        width = 25
+        height = 30
+        generation_per_second = 1
+    GameOfLife(width, height, generation_per_second=generation_per_second)
+    return render_template('index.html', width=width, height=height, generation_per_second=generation_per_second)
 
 @app.route('/live')
 def live():

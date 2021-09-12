@@ -19,6 +19,6 @@
 {% block scripts %}
     {{ super() }}
     <script>
-        setInterval(() => window.location.reload(), 1000 / {{ game.pts }});
+        setInterval(() => window.location.reload(), 1000 / {{ game.generation_per_second }});
     </script>
 {% endblock %}

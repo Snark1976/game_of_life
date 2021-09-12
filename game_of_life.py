@@ -15,11 +15,11 @@ class SingletonMeta(type):
 
 
 class GameOfLife(metaclass=SingletonMeta):
-    def __init__(self, width=20, height=20, counter=0, pts=1):
+    def __init__(self, width=20, height=20, counter=0, generation_per_second=1):
         self.__width = width
         self.__height = height
         self.counter = counter
-        self.pts = pts
+        self.generation_per_second = generation_per_second
         self.world = self.generate_universe()
 
     def form_new_generation(self):

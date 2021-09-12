@@ -3,9 +3,9 @@
 {% block app_content %}
     <form action="" method="post">
         <p style="text-align: right; color: #555; line-height: 170%;">
-            Ширина поля (1-40): <input type="number" id="horiz" name="horiz" min="1" max="40" value="{{ goriz }}"><br>
-            Высота поля (1-25): <input type="number" id="vert" name="vert" min="1" max="25" value="{{ vert }}"><br>
-            Поколений в секунду (1-10): <input type="number" id="pts" name="pts" min="1" max="10" value="{{ pts }}"><br>
+            Ширина поля (1-40): <input type="number" id="width" name="width" min="1" max="40" value="{{ width }}"><br>
+            Высота поля (1-25): <input type="number" id="height" name="height" min="1" max="25" value="{{ height }}"><br>
+            Поколений в секунду (1-10): <input type="number" id="generation_per_second" name="generation_per_second" min="1" max="10" value="{{ generation_per_second }}"><br>
             <input type="submit" value="Задать параметры">
         </p>
     </form>
