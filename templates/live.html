@@ -2,11 +2,11 @@
 
 
 {% block app_content %}
-    <div class="counter">{{ counter }}</div>
+    <div class="counter">{{ game.counter }}</div>
     <a class="btn btn-warning home" href="{{ url_for('index') }}">На главную</a>
     <a class="btn btn-info refresh" href="{{ url_for('live') }}">Создать новую жизнь</a>
     <table>
-        {% for row in world %}
+        {% for row in game.world %}
             <tr>
                 {% for cell in row %}
                     <td class="{{ 'cell living-cell' if cell == 1 else ('cell' if cell == 0 else 'cell dead-cell')  }}"></td>
@@ -19,6 +19,6 @@
 {% block scripts %}
     {{ super() }}
     <script>
-        setInterval(() => window.location.reload(), 300);
+        setInterval(() => window.location.reload(), 1000 / {{ game.pts }});
     </script>
 {% endblock %}

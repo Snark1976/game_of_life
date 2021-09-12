@@ -1,5 +1,14 @@
 {% extends 'base.html' %}
 
 {% block app_content %}
+    <form action="" method="post">
+        <p style="text-align: right; color: #555; line-height: 170%;">
+            Ширина поля (1-40): <input type="number" id="horiz" name="horiz" min="1" max="40" value="{{ goriz }}"><br>
+            Высота поля (1-25): <input type="number" id="vert" name="vert" min="1" max="25" value="{{ vert }}"><br>
+            Поколений в секунду (1-10): <input type="number" id="pts" name="pts" min="1" max="10" value="{{ pts }}"><br>
+            <input type="submit" value="Задать параметры">
+        </p>
+    </form>
+
     <a class="btn btn-primary" href="{{ url_for('live') }}">Создать жизнь</a>
 {% endblock %}
