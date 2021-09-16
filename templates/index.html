@@ -1,14 +1,28 @@
 {% extends 'base.html' %}
 
 {% block app_content %}
+
     <form action="" method="post">
-        <p style="text-align: right; color: #555; line-height: 170%;">
-            Ширина поля (1-40): <input type="number" id="width" name="width" min="1" max="40" value="{{ width }}"><br>
-            Высота поля (1-25): <input type="number" id="height" name="height" min="1" max="25" value="{{ height }}"><br>
-            Поколений в секунду (1-10): <input type="number" id="generation_per_second" name="generation_per_second" min="1" max="10" value="{{ generation_per_second }}"><br>
-            <input type="submit" value="Задать параметры">
+        <p class="properties">
+            Ширина поля (1-60): <input type="number" id="width" name="width" min="1" max="60" value="{{ width }}"><br>
+            Высота поля (1-30): <input type="number" id="height" name="height" min="1" max="30" value="{{ height }}"><br>
+            Поколений в секунду (0-10): <input type="number" id="generation_per_second" name="generation_per_second" min="0" max="10" value="{{ generation_per_second }}"><br>
+            Настроить конфигурацию мира : <input type="checkbox"  name="config_world" {{ 'checked' if  config_world else '' }}><br>
         </p>
+                    {% if config_world %}
+                <table align="center" class="set_word">
+                    {% for i in range(height) %}
+                        <tr>
+                            {% for j in range(width) %}
+                               <td class="cell_set_world"><input type="checkbox" id="config_world" name="{{ i }}:{{ j }}" ></td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+
+        <p class="submit"><input type="submit" value="Задать параметры"></p>
     </form>
 
-    <a class="btn btn-primary" href="{{ url_for('live') }}">Создать жизнь</a>
+    <a class="btn btn-primary" href="{{ url_for('live') }}">Запустить генерацию</a>
 {% endblock %}

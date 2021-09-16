@@ -13,12 +13,18 @@ def index():
         width = int(request.form.get('width'))
         height = int(request.form.get('height'))
         generation_per_second = int(request.form.get('generation_per_second'))
+        config_world = request.form.get('config_world') == 'on'
     else:
-        width = 25
-        height = 30
+        width = 35
+        height = 20
         generation_per_second = 1
+        config_world = False
     GameOfLife(width, height, generation_per_second=generation_per_second)
-    return render_template('index.html', width=width, height=height, generation_per_second=generation_per_second)
+    return render_template('index.html',
+                           width=width,
+                           height=height,
+                           generation_per_second=generation_per_second,
+                           config_world=config_world)
 
 @app.route('/live')
 def live():

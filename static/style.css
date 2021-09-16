@@ -1,17 +1,51 @@
 .world {
     border: 1px solid black;
     border-collapse: collapse;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.properties{
+    text-align: center;
+    color: #555;
+    line-height: 170%;
+}
+
+.submit{
+    text-align: center;
+    color: #555;
+    line-height: 170%;
 }
 
 td {
     border: 1px solid black;
 }
 
+.set_word{
+    text-align: center;
+    border-spacing: 0;
+}
+
+.cell_set_world{
+    border: 0;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+}
+
+#config_world{
+    margin: 0;
+    width: 20px;
+    height: 20px;
+}
+
 .cell {
     padding: 5px;
     background: whitesmoke;
-    width: 10px;
-    height: 10px;
+    width: 5px;
+    height: 5px;
 }
 
 .living-cell {
@@ -24,25 +58,23 @@ td {
 
 .content {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-a, table {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+a {
+    text-align: center;
 }
 
 .home {
     top: 5%;
-    left: 45%;
+    left: 40%;
 }
 
 .refresh {
     top: 5%;
-    left: 55%;
+    left: 60%;
 }
 
 .counter {
@@ -54,7 +86,6 @@ a, table {
     border: 1px solid indigo;
     border-radius: 50%;
 }
-
 
 .btn {
     display: inline-block;

@@ -3,9 +3,9 @@
 
 {% block app_content %}
     <div class="counter">{{ game.counter }}</div>
-    <a class="btn btn-warning home" href="{{ url_for('index') }}">На главную</a>
-    <a class="btn btn-info refresh" href="{{ url_for('live') }}">Создать новую жизнь</a>
-    <table>
+    <a class="btn btn-warning home" href="{{ url_for('index') }}">К выбору параметров</a>
+    <a class="btn btn-info refresh" href="{{ url_for('live') }}">Следующее поколение</a>
+    <table class="world">
         {% for row in game.world %}
             <tr>
                 {% for cell in row %}
@@ -19,6 +19,6 @@
 {% block scripts %}
     {{ super() }}
     <script>
-        setInterval(() => window.location.reload(), 1000 / {{ game.generation_per_second }});
+        if ({{ game.generation_per_second }}) setInterval(() => window.location.reload(), 1000 / {{ game.generation_per_second }});
     </script>
 {% endblock %}
