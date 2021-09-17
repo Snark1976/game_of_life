@@ -1,30 +1,35 @@
 from flask import Flask
-from flask import render_template
-from game_of_life import GameOfLife
-from flask import request
+from flask import render_template, request
+from game_of_life import GameOfLife, WorldConfiguration
 
 app = Flask(__name__)
+
+start_configuration = WorldConfiguration(width=30,
+                                         height=20,
+                                         generation_per_second=0
+                                         )
 
 
 @app.route('/', methods=['get', 'post'])
 @app.route('/index', methods=['get', 'post'])
 def index():
     if request.method == 'POST':
-        width = int(request.form.get('width'))
-        height = int(request.form.get('height'))
-        generation_per_second = int(request.form.get('generation_per_second'))
-        config_world = request.form.get('config_world') == 'on'
-    else:
-        width = 35
-        height = 20
-        generation_per_second = 1
-        config_world = False
-    GameOfLife(width, height, generation_per_second=generation_per_second)
+        start_configuration.width = int(request.form.get('width'))
+        start_configuration.height = int(request.form.get('height'))
+        start_configuration.generation_per_second = int(request.form.get('generation_per_second'))
+        start_configuration.config_world = request.form.get('config_world') == 'on'
+        if start_configuration.config_world:
+            start_configuration.world = [[int(request.form.get(f'{i}:{j}') == 'on')
+                                          for j in range(start_configuration.width)]
+                                         for i in range(start_configuration.height)]
+
+    GameOfLife(start_configuration)
     return render_template('index.html',
-                           width=width,
-                           height=height,
-                           generation_per_second=generation_per_second,
-                           config_world=config_world)
+                           width=start_configuration.width,
+                           height=start_configuration.height,
+                           generation_per_second=start_configuration.generation_per_second,
+                           config_world=start_configuration.config_world
+                           )
 
 @app.route('/live')
 def live():

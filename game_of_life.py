@@ -14,21 +14,31 @@ class SingletonMeta(type):
         return cls._instances[cls]
 
 
-class GameOfLife(metaclass=SingletonMeta):
-    def __init__(self, width, height, generation_per_second, world=0):
-        self.__width = width
-        self.__height = height
-        self.counter = 0
+class WorldConfiguration:
+    def __init__(self, width, height, generation_per_second, config_world=False, world=0):
+        self.width = width
+        self.height = height
         self.generation_per_second = generation_per_second
-        if world:
+        self.config_world = config_world
+        if config_world:
             self.world = world
         else:
-            self.world = self.generate_universe()
+            self.world = [[random.randint(0, 1) for _ in range(self.width)] for _ in range(self.height)]
+
+
+class GameOfLife(metaclass=SingletonMeta):
+    def __init__(self, world_conf: WorldConfiguration): #width, height, generation_per_second, world=0):
+        self.__width = world_conf.width
+        self.__height = world_conf.height
+        self.counter = 0
+        self.generation_per_second = world_conf.generation_per_second
+        self.world = world_conf.world
 
     def form_new_generation(self):
         universe = self.world
         new_world = [[0 for _ in range(self.__width)] for _ in range(self.__height)]
-
+        print(universe)
+        print(new_world)
         for i in range(len(universe)):
             for j in range(len(universe[0])):
 
