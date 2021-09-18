@@ -4,24 +4,26 @@
 
     <form action="" method="post">
         <p class="properties">
-            Ширина поля (1-60): <input type="number" id="width" name="width" min="1" max="60" value="{{ width }}"><br>
-            Высота поля (1-30): <input type="number" id="height" name="height" min="1" max="30" value="{{ height }}"><br>
-            Поколений в секунду (0-10): <input type="number" id="generation_per_second" name="generation_per_second" min="0" max="10" value="{{ generation_per_second }}"><br>
-            Настроить конфигурацию мира : <input type="checkbox"  name="config_world" {{ 'checked' if  config_world else '' }}><br>
+            Ширина поля (1-60): <input type="number" id="width" name="width" min="1" max="60" value="{{ config.width }}"><br>
+            Высота поля (1-30): <input type="number" id="height" name="height" min="1" max="30" value="{{ config.height }}"><br>
+            Поколений в секунду (0-10): <input type="number" id="generation_per_second" name="generation_per_second" min="0" max="10" value="{{ config.generation_per_second }}"><br>
+            Начальная конфигурация мира :<br>
+            <input name="config_world" type="radio" value="random" {{ 'checked' if  config.config_world == 'random' else '' }}> Случайная
+            <input name="config_world" type="radio" value="manual" {{ 'checked' if  config.config_world == 'manual' else '' }}> Ручной выбор
+            <input name="config_world" type="radio" value="clear" {{ 'checked' if  config.config_world == 'clear' else '' }}> Пустой мир<br>
         </p>
-                    {% if config_world %}
-                <table align="center" class="set_word">
-                    {% for i in range(height) %}
-                        <tr>
-                            {% for j in range(width) %}
-                               <td class="cell_set_world"><input type="checkbox" id="config_world" name="{{ i }}:{{ j }}" ></td>
-                            {% endfor %}
-                        </tr>
-                    {% endfor %}
-                </table>
-            {% endif %}
-
-        <p class="submit"><input type="submit" value="Задать параметры"></p>
+            <table align="center" class="set_word">
+                {% for i in range(config.height) %}
+                    <tr>
+                        {% for j in range(config.width) %}
+                            <td class="cell_set_world">
+                                <input type="checkbox" id="config_world" name="{{ i }}:{{ j }}" {{ 'checked' if  config.world[i][j] else '' }}>
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+        <p class="submit"><input type="submit" value="Применить изменения"></p>
     </form>
 
     <a class="btn btn-primary" href="{{ url_for('live') }}">Запустить генерацию</a>

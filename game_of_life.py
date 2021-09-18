@@ -1,5 +1,6 @@
 import random
 from threading import Lock
+from flask import request
 
 
 class SingletonMeta(type):
@@ -15,19 +16,31 @@ class SingletonMeta(type):
 
 
 class WorldConfiguration:
-    def __init__(self, width, height, generation_per_second, config_world=False, world=0):
+
+    def __init__(self, width, height, generation_per_second, config_world='random'):
         self.width = width
         self.height = height
         self.generation_per_second = generation_per_second
         self.config_world = config_world
-        if config_world:
-            self.world = world
+        if config_world == 'manual':
+            self.world = self._manual_world()
+        elif config_world == 'clear':
+            self.world = self._clear_world()
         else:
-            self.world = [[random.randint(0, 1) for _ in range(self.width)] for _ in range(self.height)]
+            self.world = self._random_world()
+
+    def _random_world(self):
+        return [[random.randint(0, 1) for _ in range(self.width)] for _ in range(self.height)]
+
+    def _manual_world(self):
+        return [[int(request.form.get(f'{i}:{j}') == 'on') for j in range(self.width)] for i in range(self.height)]
+
+    def _clear_world(self):
+        return [[0 for _ in range(self.width)] for _ in range(self.height)]
 
 
 class GameOfLife(metaclass=SingletonMeta):
-    def __init__(self, world_conf: WorldConfiguration): #width, height, generation_per_second, world=0):
+    def __init__(self, world_conf: WorldConfiguration):
         self.__width = world_conf.width
         self.__height = world_conf.height
         self.counter = 0
@@ -37,8 +50,6 @@ class GameOfLife(metaclass=SingletonMeta):
     def form_new_generation(self):
         universe = self.world
         new_world = [[0 for _ in range(self.__width)] for _ in range(self.__height)]
-        print(universe)
-        print(new_world)
         for i in range(len(universe)):
             for j in range(len(universe[0])):
 
@@ -55,14 +66,10 @@ class GameOfLife(metaclass=SingletonMeta):
                 new_world[i][j] = 0
         self.world = new_world
 
-    def generate_universe(self):
-        return [[random.randint(0, 1) for _ in range(self.__width)] for _ in range(self.__height)]
-
     @staticmethod
     def __get_near(universe, pos, system=None):
         if system is None:
             system = ((-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1))
-
         count = 0
         for i in system:
             if universe[(pos[0] + i[0]) % len(universe)][(pos[1] + i[1]) % len(universe[0])] == 1:
