@@ -1,10 +1,10 @@
 .world {
-    border: 1px solid black;
-    border-collapse: collapse;
+    border: 1px solid gray;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    background-color: #ffe073
 }
 
 .properties{
@@ -26,6 +26,9 @@ td {
 .set_word{
     text-align: center;
     border-spacing: 0;
+    border: 1px solid gray;
+    padding: 4px 2px 0px 2px;
+    background-color: #ffe073;
 }
 
 .cell_set_world{
@@ -44,16 +47,16 @@ td {
 .cell {
     padding: 5px;
     background: whitesmoke;
-    width: 5px;
-    height: 5px;
+    width: 10px;
+    height: 10px;
 }
 
 .living-cell {
-    background: lightgreen;
+    background: #0074ff;
 }
 
 .dead-cell {
-    background: darkred;
+    background: rgb(204, 186, 134);
 }
 
 .content {

@@ -2,9 +2,11 @@
 
 
 {% block app_content %}
-    <div class="counter">{{ game.counter }}</div>
-    <a class="btn btn-warning home" href="{{ url_for('index') }}">К выбору параметров</a>
-    <a class="btn btn-info refresh" href="{{ url_for('live') }}">Следующее поколение</a>
+    <div class="counter">{{ game.counter }}</div><br>
+    <a class="btn btn-warning home" href="{{ url_for('index') }}">К выбору параметров</a><br>
+    {% if game.generation_per_second == 0 %}
+        <a class="btn btn-info refresh" href="{{ url_for('live') }}">Следующее поколение</a>
+    {% endif %}
     <table class="world">
         {% for row in game.world %}
             <tr>
