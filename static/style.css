@@ -4,7 +4,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #ffe073
+    background-color: #ffe077
 }
 
 .properties{
@@ -28,7 +28,7 @@ td {
     border-spacing: 0;
     border: 1px solid gray;
     padding: 4px 2px 0px 2px;
-    background-color: #ffe073;
+    background-color: #ffe075;
 }
 
 .cell_set_world{
